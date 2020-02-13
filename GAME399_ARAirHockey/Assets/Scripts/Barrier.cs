@@ -30,7 +30,7 @@ public class Barrier : MonoBehaviour
         if (f_Counter > 0)
         {
             //calculate the position that the barrier model should shake to when hit
-            float f_ShakePosition = Mathf.Sin(Time.time * f_ShakeSpeed) * (f_ShakeDistance * (f_Counter/f_ShakeDuration));
+            float f_ShakePosition = Mathf.Sin(f_Counter * f_ShakeSpeed) * (f_ShakeDistance * (f_Counter/f_ShakeDuration));
 
             // apply the transformation to the local position
             // this might appear backwards on some walls, because they all shake in the same direction first. 

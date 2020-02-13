@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\AppManager.cs" />
     <Compile Include="Assets\Scripts\Barrier.cs" />
     <Compile Include="Assets\Scripts\PuckMovement.cs" />
+    <Compile Include="Assets\Scripts\ReadyBoard.cs" />
     <Compile Include="Assets\Scripts\ScoreBoard.cs" />
     <Compile Include="Assets\Scripts\ScoreManager.cs" />
     <Compile Include="Assets\Scripts\TopMenu_Script.cs" />

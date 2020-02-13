@@ -13,10 +13,12 @@ public class ScoreBoard : MonoBehaviour
     //Fields 
     float f_Count;
 
-    public float f_Speed = 0.5f;
-    public float f_Position = 510;
-    public bool isVisible = false;
-    public int isRight = 1;
+    public float f_Speed = 1f;
+    public float f_Position = 510; // this is static and will not scale well with screen resolution, figure this out if you have time
+    public bool b_isVisible = false;
+
+    public string str_Player = "Player1";
+    public int b_isRight = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +31,7 @@ public class ScoreBoard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (isVisible)
+        switch (b_isVisible)
         {
             case true:
                 if (f_Count > 0)
@@ -37,7 +39,7 @@ public class ScoreBoard : MonoBehaviour
                     // move the board out of view
                     float boardPositionX = Mathf.Sin(f_Speed * f_Count) * f_Position;
                     i_Board.transform.localPosition = new Vector3(
-                        boardPositionX * isRight,
+                        boardPositionX * b_isRight,
                         0,
                         0
                         );
@@ -46,23 +48,23 @@ public class ScoreBoard : MonoBehaviour
                 }
                 else if (f_Count != 0)
                 {
-                    isVisible = false;
+                    b_isVisible = false;
                     f_Count = 0;
                     //set to a static position for consistency
                     i_Board.transform.localPosition = new Vector3(
                        0,
                        0,
                        0
-                       );
+                       );                  
                 }
                 break;
             case false:
                 if (f_Count > 0)
                 {
                     float boardPositionX = Mathf.Sin(f_Speed * ((Mathf.PI * 0.5f / f_Speed) - f_Count)) * f_Position;
-                    Debug.Log((Mathf.PI * 0.5f / f_Speed));
+                    //Debug.Log((Mathf.PI * 0.5f / f_Speed));
                     i_Board.transform.localPosition = new Vector3(
-                        boardPositionX * isRight,
+                        boardPositionX * b_isRight,
                         0,
                         0
                         );
@@ -70,13 +72,15 @@ public class ScoreBoard : MonoBehaviour
                 }
                 else if(f_Count != 0)
                 {
-                    isVisible = true;
+                    b_isVisible = true;
                     f_Count = 0;
                     i_Board.transform.localPosition = new Vector3(
-                       f_Position * isRight,
+                       f_Position * b_isRight,
                        0,
                        0
                        );
+                    // update Displayed Score, possibly do some particle effects or something to jazz it up
+                    t_Score.text = sm_Manager.GetScore(str_Player).ToString();
                 }
                 break;
         }
@@ -85,6 +89,7 @@ public class ScoreBoard : MonoBehaviour
 
     public void ToggleScoreBoardVisible()
     {
-        f_Count = 3.14f;
+        f_Count = (Mathf.PI * 0.5f / f_Speed);
     }
+    
 }
