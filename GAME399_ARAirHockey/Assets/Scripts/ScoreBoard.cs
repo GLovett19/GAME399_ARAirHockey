@@ -57,7 +57,9 @@ public class ScoreBoard : MonoBehaviour
                        0,
                        0,
                        0
-                       );                  
+                       );
+                    t_Score.text = sm_Manager.GetScore(str_Player).ToString();
+                    t_Wins.text = sm_Manager.GetWins(str_Player).ToString();
                 }
                 break;
             case false:
@@ -83,10 +85,10 @@ public class ScoreBoard : MonoBehaviour
                        );
                     // update Displayed Score, possibly do some particle effects or something to jazz it up
                     t_Score.text = sm_Manager.GetScore(str_Player).ToString();
+                    t_Wins.text = sm_Manager.GetWins(str_Player).ToString();
                 }
                 break;
         }
-       
     }
 
     public void ToggleScoreBoardVisible()

@@ -5,24 +5,28 @@ using UnityEngine.UI;
 
 public class ReadyBoard : MonoBehaviour
 {
-    //Components
+    //Self Assigning Components
     ScoreManager sm_Manager;
-    Button TempButton;
-    Text t_text;
 
-    //Fields 
-    float f_Count;
+    //Assigned Components 
+    public GameObject ButtonMoveMount;
+    public Button NextRoundButton;
+    public Button NextMatchButton;
+    public Button NextGameButton;
+    public Button MainMenuButton;
 
+    //Public fields 
     public float f_Speed = 0.5f;
     public float f_Position = 310;
     public bool b_isVisible = false;
+
+    //Private Fields 
+    float f_Count;
 
     // Start is called before the first frame update
     void Start()
     {
         sm_Manager = FindObjectOfType<ScoreManager>();
-        TempButton = GetComponentInChildren<Button>();
-        t_text = GetComponentInChildren<Text>();
     }
 
     // Update is called once per frame
@@ -35,7 +39,7 @@ public class ReadyBoard : MonoBehaviour
                 {
                     float boardPositionY = Mathf.Sin(f_Speed * f_Count) * f_Position;
                     //Debug.Log((Mathf.PI * 0.5f / f_Speed));
-                    TempButton.transform.localPosition = new Vector3(
+                    ButtonMoveMount.transform.localPosition = new Vector3(
                         0,
                         boardPositionY,
                         0
@@ -47,7 +51,7 @@ public class ReadyBoard : MonoBehaviour
                 {
                     b_isVisible = false;
                     f_Count = 0;
-                    TempButton.transform.localPosition = new Vector3(
+                    ButtonMoveMount.transform.localPosition = new Vector3(
                        0,
                        0,
                        0
@@ -60,7 +64,7 @@ public class ReadyBoard : MonoBehaviour
                 {
                     float boardPositionY = Mathf.Sin(f_Speed * ((Mathf.PI * 0.5f / f_Speed) - f_Count)) * f_Position;
                     //Debug.Log((Mathf.PI * 0.5f / f_Speed));
-                    TempButton.transform.localPosition = new Vector3(
+                    ButtonMoveMount.transform.localPosition = new Vector3(
                         0,
                         boardPositionY,
                         0
@@ -72,7 +76,7 @@ public class ReadyBoard : MonoBehaviour
                 {
                     b_isVisible = true;
                     f_Count = 0;
-                    TempButton.transform.localPosition = new Vector3(
+                    ButtonMoveMount.transform.localPosition = new Vector3(
                        0,
                        f_Position,
                        0
@@ -84,8 +88,37 @@ public class ReadyBoard : MonoBehaviour
         }
     }
 
-    public void ToggleReadyVisible()
+    public void ToggleReadyBoardVisible()
     {
         f_Count = (Mathf.PI * 0.5f / f_Speed);
+    }
+
+    public void RoundEndButtons()
+    {
+        NextRoundButton.gameObject.SetActive(true);
+
+        NextMatchButton.gameObject.SetActive(false);
+        NextGameButton.gameObject.SetActive(false);
+        MainMenuButton.gameObject.SetActive(false);
+    }
+
+    public void MatchEndButtons()
+    {
+        NextMatchButton.gameObject.SetActive(true);
+
+
+        NextRoundButton.gameObject.SetActive(false);
+        NextGameButton.gameObject.SetActive(false);
+        MainMenuButton.gameObject.SetActive(false);
+    }
+
+    public void GameEndButtons()
+    {
+        Debug.Log("A");
+        NextGameButton.gameObject.SetActive(true);
+        MainMenuButton.gameObject.SetActive(true);
+
+        NextMatchButton.gameObject.SetActive(false);
+        NextRoundButton.gameObject.SetActive(false);
     }
 }

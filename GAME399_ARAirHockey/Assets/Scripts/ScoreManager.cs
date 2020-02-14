@@ -33,19 +33,21 @@ public class ScoreManager : MonoBehaviour
 
 
     //public Fields
-    public int i_MatchPoint = 1;
+    public int int_MatchPoint = 7;
+    public int int_GamePoint = 2;
 
     //Private Fields
-    int int_Player1Score;
-    int int_Player2Score;
-    int int_Player1Wins;
-    int int_Player2Wins;
+    public int int_Player1Score;
+    public int int_Player2Score;
+    public int int_Player1Wins;
+    public int int_Player2Wins;
     float f_Counter;
-    string str_toUnload;
+    public string str_toUnload;
 
     // Start is called before the first frame update
     void Start()
     {
+        readyboard.MatchEndButtons();
         str_toUnload = ActiveSceneManager.GetSceneName();
     }
 
@@ -88,12 +90,12 @@ public class ScoreManager : MonoBehaviour
         {
             case "Player1":
                 int_Player1Score += val;
-                Debug.Log("Player 1 Score : " + int_Player1Score);
+                //Debug.Log("Player 1 Score : " + int_Player1Score);
                 RoundEnd();
                 break;
             case "Player2":
                 int_Player2Score += val;
-                Debug.Log("Player 2 Score : " + int_Player2Score);
+                //Debug.Log("Player 2 Score : " + int_Player2Score);
                 RoundEnd();
                 break;
             default:
@@ -112,8 +114,41 @@ public class ScoreManager : MonoBehaviour
                 return 0;
         }
     }
+
+    public void SetWins(int val, string player)
+    {
+        switch (player)
+        {
+            case "Player1":
+                int_Player1Wins += val;
+                //Debug.Log("Player 1 Wins : " + int_Player1Wins);
+                break;
+            case "Player2":
+                int_Player2Wins += val;
+                //Debug.Log("Player 2 Wins : " + int_Player2Wins);
+                break;
+            default:
+                break;
+        }
+    }
+    public int GetWins(string player)
+    {
+        switch (player)
+        {
+            case "Player1":
+                return int_Player1Wins;
+            case "Player2":
+                return int_Player2Wins;
+            default:
+                return 0;
+        }
+    }
+    
     public void RoundEnd()
     {
+        // this makes sure the ready board is displaying the correct buttons, find a better place to do this later.
+        readyboard.RoundEndButtons();
+        
         // destroy any puck still on the table
         Destroy(ActivePuck.gameObject);
         ActivePuck = null;
@@ -128,19 +163,17 @@ public class ScoreManager : MonoBehaviour
         // ready prompt for the players to start a new round appears
         if (readyboard.b_isVisible == false)
         {
-            readyboard.ToggleReadyVisible();
-            if (int_Player1Score >= i_MatchPoint || int_Player2Score >= i_MatchPoint)
-            {
-                // if the players have reached the match point where a game is won
-                /*
-                 * Hide the READY? button 
-                 * Show the NEXT MATCH button
-                 * on starting the next match 
-                 * one of the two players gains a win
-                 * player scores are set to zero
-                 */
-            }
+            readyboard.ToggleReadyBoardVisible();           
         }
+
+        if (int_Player1Score >= int_MatchPoint || int_Player2Score >= int_MatchPoint)
+        {
+            // this makes sure the ready board is displaying the correct buttons, find a better place to do this later.
+            readyboard.MatchEndButtons();
+            MatchEnd();
+            
+        }
+
 
     }
     public void RoundStart()
@@ -154,7 +187,7 @@ public class ScoreManager : MonoBehaviour
         }
         if (readyboard.b_isVisible == true)
         {
-            readyboard.ToggleReadyVisible();
+            readyboard.ToggleReadyBoardVisible();
         }
 
 
@@ -171,13 +204,34 @@ public class ScoreManager : MonoBehaviour
         //SpawnPuck();
        
     }
+
     public void MatchEnd()
     {
+        // assign wins to proper player 
+        if (int_Player1Score > int_Player2Score)
+        {
+            SetWins(1, "Player1");
+        }
+        else
+        {
+            SetWins(1, "Player2");
+        }
+        // check to see if the game is over
+        if (int_Player1Wins >= int_GamePoint || int_Player2Wins >= int_GamePoint)
+        {
+            Debug.Log("C");
+            GameEnd();
+            
+        }
+
     }
     public void MatchStart()
     {
-
+        int_Player1Score = 0;
+        int_Player2Score = 0;
+        RoundStart();
     }
+
     public void SpawnPuck()
     {
         ActivePuck = Instantiate(
@@ -187,9 +241,30 @@ public class ScoreManager : MonoBehaviour
             ).GetComponent<PuckMovement>();
         ActivePuck.f_Speed = 3f;
     }
-    public void GameEnd(string Winner)
+
+    public void GameEnd()
     {
-            ActiveSceneManager.LoadScene("WinScene", false);
-            ActiveSceneManager.UnloadScene(str_toUnload);
+        // what needs to happen at the end of a game
+        /*
+         * Swap ready board buttons to play next game OR return to main menu
+         *      play next game can just reload the sceen
+         *      Main menu can just load the main menu
+         * Some Kind of Congradulations for the winner? 
+         *      A Crown pops out over their scoreboard? 
+         *      Something Else, Talk about this in class friday
+         */
+        Debug.Log("B");
+        readyboard.GameEndButtons();
+    }
+
+    public void LoadNextGame()
+    {
+        ActiveSceneManager.ReloadScene(str_toUnload, true);
+    }
+    public void LoadMainMenu()
+    {
+        
+        ActiveSceneManager.LoadScene("TopMenu", false);
+        ActiveSceneManager.UnloadScene(str_toUnload);
     }
 }
