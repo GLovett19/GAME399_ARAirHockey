@@ -5,10 +5,13 @@ using UnityEngine.UI;
 
 public class ScoreBoard : MonoBehaviour
 {
-    //Components
+    // Self Assigning Components
     ScoreManager sm_Manager;
-    Text t_Score;
     Image i_Board;
+
+    // Assigned Components 
+    public Text t_Score;
+    public Text t_Wins;
     
     //Fields 
     float f_Count;
@@ -24,7 +27,6 @@ public class ScoreBoard : MonoBehaviour
     void Start()
     {
         sm_Manager = FindObjectOfType<ScoreManager>();
-        t_Score = GetComponentInChildren<Text>();
         i_Board = GetComponentInChildren<Image>();
     }
 

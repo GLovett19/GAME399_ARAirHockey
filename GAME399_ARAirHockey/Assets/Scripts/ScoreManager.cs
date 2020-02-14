@@ -33,7 +33,7 @@ public class ScoreManager : MonoBehaviour
 
 
     //public Fields
-    public int i_MatchPoint = 7;
+    public int i_MatchPoint = 1;
 
     //Private Fields
     int int_Player1Score;
@@ -41,12 +41,12 @@ public class ScoreManager : MonoBehaviour
     int int_Player1Wins;
     int int_Player2Wins;
     float f_Counter;
-
+    string str_toUnload;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        str_toUnload = ActiveSceneManager.GetSceneName();
     }
 
     // Update is called once per frame
@@ -79,6 +79,7 @@ public class ScoreManager : MonoBehaviour
             }
             f_Counter -= Time.deltaTime;
         }
+        
     }
 
     public void SetScore(int val, string player)
@@ -128,7 +129,19 @@ public class ScoreManager : MonoBehaviour
         if (readyboard.b_isVisible == false)
         {
             readyboard.ToggleReadyVisible();
+            if (int_Player1Score >= i_MatchPoint || int_Player2Score >= i_MatchPoint)
+            {
+                // if the players have reached the match point where a game is won
+                /*
+                 * Hide the READY? button 
+                 * Show the NEXT MATCH button
+                 * on starting the next match 
+                 * one of the two players gains a win
+                 * player scores are set to zero
+                 */
+            }
         }
+
     }
     public void RoundStart()
     {
@@ -158,6 +171,13 @@ public class ScoreManager : MonoBehaviour
         //SpawnPuck();
        
     }
+    public void MatchEnd()
+    {
+    }
+    public void MatchStart()
+    {
+
+    }
     public void SpawnPuck()
     {
         ActivePuck = Instantiate(
@@ -166,5 +186,10 @@ public class ScoreManager : MonoBehaviour
             Quaternion.Euler(90, 0, 0)
             ).GetComponent<PuckMovement>();
         ActivePuck.f_Speed = 3f;
+    }
+    public void GameEnd(string Winner)
+    {
+            ActiveSceneManager.LoadScene("WinScene", false);
+            ActiveSceneManager.UnloadScene(str_toUnload);
     }
 }
