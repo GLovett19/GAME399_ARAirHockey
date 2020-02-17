@@ -31,7 +31,7 @@ public class PuckMovement : MonoBehaviour
     {
         // keep a constant velocity in the desired direction. possibly add drag to this later?
         rb_Rigidbody.velocity = v3_TargetDirection * f_Speed;
-
+       
 
         // Clamp the Puck position to the visible area this is for testing only, every area should be fully enclosed by barriers
         Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
