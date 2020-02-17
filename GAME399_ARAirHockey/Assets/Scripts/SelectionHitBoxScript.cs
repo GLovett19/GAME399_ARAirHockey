@@ -7,41 +7,49 @@ using UnityEngine.EventSystems;
 public class SelectionHitBoxScript : MonoBehaviour
 {
 
-    Button but_MyButton;
+    public Button but_MyButton;
     Camera cam;
     EventSystem es_;
+    Material m_MyMaterial;
+    Renderer r_MyRenderer;
 
     float f_counter;
     public float f_SelectionThreshold;
+    public float f_ShaderSelectionValue;
 
+    public Vector3 buttonPosition;
     // Start is called before the first frame update
     void Start()
     {
         but_MyButton = GetComponentInParent<Button>();
         cam = Camera.main;
         es_ = FindObjectOfType<EventSystem>();
+        
+        r_MyRenderer = gameObject.GetComponent<Renderer>();
+        m_MyMaterial = r_MyRenderer.material;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // set this objects position relatiive to the onscreen position
-        Vector3 v3_dumpPosition = new Vector3(
-            cam.ScreenToWorldPoint(but_MyButton.transform.position).x,
-            cam.ScreenToWorldPoint(but_MyButton.transform.position).y,
-            0
-            );
-        transform.position = v3_dumpPosition;
+        m_MyMaterial.SetFloat("SelectionTimer", f_ShaderSelectionValue);
+
+        buttonPosition = cam.ScreenToWorldPoint(but_MyButton.GetComponent<RectTransform>().transform.position);
         if (es_.currentSelectedGameObject != null)
         {
             if (es_.currentSelectedGameObject.name == but_MyButton.gameObject.name)
             {
                 Debug.Log("Button Selected");
+                
+
                 f_counter += Time.deltaTime;
+              
+                
                 if (f_counter > f_SelectionThreshold)
                 {
                     f_counter = 0;
-                    but_MyButton.onClick.Invoke();
+                    //but_MyButton.onClick.Invoke();
+                    
                     
                 }
             }
@@ -62,6 +70,7 @@ public class SelectionHitBoxScript : MonoBehaviour
     }
     void OnTriggerExit(Collider other)
     {
+        
         f_counter = 0;
         Debug.Log("Button deselected");
         es_.SetSelectedGameObject(null);
