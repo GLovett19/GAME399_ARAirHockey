@@ -65,6 +65,7 @@
      <Compile Include="Assets\Scripts\SelectionHitBoxScript.cs" />
      <Compile Include="Assets\Scripts\TopMenu_Script.cs" />
      <Compile Include="Assets\Scripts\TriggerTesting.cs" />
+     <Compile Include="Assets\SelectionSphere.cs" />
  <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
  <HintPath>C:/Users/George Lovett/Documents/UnityProjects/GAME399_ARAH/GAME399_ARAirHockey/Library/ScriptAssemblies/Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
  </Reference>

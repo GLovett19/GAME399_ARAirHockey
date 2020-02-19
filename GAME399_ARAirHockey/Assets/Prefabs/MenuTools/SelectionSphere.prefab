@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2697033131459772890}
   - component: {fileID: 2697033131459772885}
   - component: {fileID: 2697033131459772889}
+  - component: {fileID: -44028894035639175}
   m_Layer: 0
   m_Name: SelectionSphere
   m_TagString: Selector
@@ -110,3 +111,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-44028894035639175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2697033131459772884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69fe0da81589ba47a4be539c82ee557, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
