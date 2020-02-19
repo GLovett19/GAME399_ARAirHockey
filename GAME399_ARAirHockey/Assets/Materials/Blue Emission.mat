@@ -72,7 +72,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_2C5CB698: {r: 0.5314212, g: 1.5399501, b: 4.506452, a: 0}
+    - Color_2C5CB698: {r: 0.72156864, g: 2.0705884, b: 5.992157, a: 0}
     - Color_ED3D5028: {r: 0.07564971, g: 0.27752227, b: 0.9433962, a: 0}
     - _BaseColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
