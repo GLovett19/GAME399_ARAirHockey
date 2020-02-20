@@ -48,7 +48,7 @@ public class SelectionHitBoxScript : MonoBehaviour
 
         //transform.position = buttonPosition;
 
-
+        /*
         if (es_.currentSelectedGameObject != null)
         {
             if (es_.currentSelectedGameObject.name == but_MyButton.gameObject.name)
@@ -69,6 +69,7 @@ public class SelectionHitBoxScript : MonoBehaviour
             }
             
         }
+        */
     }
 
     // when this object collides with a designated "selector object" it will be selected by the eventmanager
@@ -81,6 +82,23 @@ public class SelectionHitBoxScript : MonoBehaviour
             es_.SetSelectedGameObject(but_MyButton.gameObject);
         }
         
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Selector"))
+        {
+            f_counter += Time.deltaTime;
+            f_ShaderSelectionValue = 2 * (f_counter / f_SelectionThreshold) - 1;
+
+            if (f_counter > f_SelectionThreshold)
+            {
+                f_counter = 0;
+                but_MyButton.onClick.Invoke();
+
+
+            }
+        }
     }
     void OnTriggerExit(Collider other)
     {

@@ -171,8 +171,9 @@ public class ScoreManager : MonoBehaviour
             // this makes sure the ready board is displaying the correct buttons, find a better place to do this later.
             readyboard.MatchEndButtons();
             MatchEnd();
-            
+
         }
+        
 
 
     }
