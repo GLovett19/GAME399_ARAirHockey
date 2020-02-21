@@ -17,8 +17,6 @@ public class PaddleControllerScript : MonoBehaviour
 
     void Start()
     {
-        // get the name of the image target you want this object to move according to. each image target name has to be unique for this to work 
-       // itb_stones = GameObject.Find(s_ImageTargetName).GetComponent<ImageTargetBehaviour>();
     }
 
     // Update is called once per frame
@@ -28,6 +26,11 @@ public class PaddleControllerScript : MonoBehaviour
         {            
             Vector3 v3 = new Vector3(itb_stones.transform.position.x * f_movementScaleValueX, (-1 + itb_stones.transform.position.y) * f_movementScaleValueY, 0f);
             transform.position = v3;
+            transform.localPosition = new Vector3(
+                transform.localPosition.x,
+                transform.localPosition.y,
+                0f
+                );
         }
     }
 

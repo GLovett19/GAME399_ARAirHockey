@@ -86,8 +86,10 @@ public class SelectionHitBoxScript : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
+        //Debug.Log("Collision Stay Detected");
         if (other.CompareTag("Selector"))
         {
+            //Debug.Log("Tag Stay Identified");
             f_counter += Time.deltaTime;
             f_ShaderSelectionValue = 2 * (f_counter / f_SelectionThreshold) - 1;
 
