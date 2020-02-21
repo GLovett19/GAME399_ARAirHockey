@@ -16,6 +16,7 @@ public class ScoreBoard : MonoBehaviour
     //Fields 
     float f_Count;
 
+    //public fields
     public float f_Speed = 1f;
     public float f_Position = 510; // this is static and will not scale well with screen resolution, figure this out if you have time
     public bool b_isVisible = false;

@@ -16,12 +16,14 @@ public class ReadyBoard : MonoBehaviour
     public Button MainMenuButton;
 
     //Public fields 
-    public float f_Speed = 0.5f;
+    public float f_Speed = 0.5f; // this speed MUST be SLOWER than the score board speed otherwise the scoreboards will get stuck in the wrong position
     public float f_Position = 310;
     public bool b_isVisible = false;
 
     //Private Fields 
     float f_Count;
+
+    bool b_RoundEnding = false;
 
     // Start is called before the first frame update
     void Start()
@@ -81,6 +83,10 @@ public class ReadyBoard : MonoBehaviour
                        f_Position,
                        0
                        );
+                    if (b_RoundEnding)
+                    {                        
+                        sm_Manager.RoundStart();
+                    }
                 }
 
                 break;
@@ -95,7 +101,8 @@ public class ReadyBoard : MonoBehaviour
 
     public void RoundEndButtons()
     {
-        NextRoundButton.gameObject.SetActive(true);
+        //NextRoundButton.gameObject.SetActive(true);
+        b_RoundEnding = true;
 
         NextMatchButton.gameObject.SetActive(false);
         NextGameButton.gameObject.SetActive(false);
@@ -107,7 +114,8 @@ public class ReadyBoard : MonoBehaviour
         NextMatchButton.gameObject.SetActive(true);
 
 
-        NextRoundButton.gameObject.SetActive(false);
+        // NextRoundButton.gameObject.SetActive(false);
+        b_RoundEnding = false;
         NextGameButton.gameObject.SetActive(false);
         MainMenuButton.gameObject.SetActive(false);
     }
@@ -119,6 +127,7 @@ public class ReadyBoard : MonoBehaviour
         MainMenuButton.gameObject.SetActive(true);
 
         NextMatchButton.gameObject.SetActive(false);
-        NextRoundButton.gameObject.SetActive(false);
+        //NextRoundButton.gameObject.SetActive(false);
+        b_RoundEnding = false;
     }
 }

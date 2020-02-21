@@ -31,7 +31,7 @@ public class PuckMovement : MonoBehaviour
     {
         // keep a constant velocity in the desired direction. possibly add drag to this later?
         rb_Rigidbody.velocity = v3_TargetDirection * f_Speed;
-
+       
 
         // Clamp the Puck position to the visible area this is for testing only, every area should be fully enclosed by barriers
         Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
@@ -54,8 +54,13 @@ public class PuckMovement : MonoBehaviour
             // tell the barrier to bounce, shake or react here using pubilc methods in the barrier class.
             other.collider.GetComponent<Barrier>().Hit(0);
             //Reflect the target direction by the normal of the collision, Does this still work with sphere & Cylinder colliders? 
-             v3_TargetDirection = Vector3.Reflect(v3_TargetDirection, other.contacts[0].normal);
+            v3_TargetDirection = Vector3.Reflect(v3_TargetDirection, other.contacts[0].normal);
 
+        }
+        // if the ball is colliding against a players paddle
+        else if (other.collider.GetComponent<PaddleControllerScript>() != null)
+        {
+            v3_TargetDirection = Vector3.Reflect(v3_TargetDirection, other.contacts[0].normal);
         }
 
     }

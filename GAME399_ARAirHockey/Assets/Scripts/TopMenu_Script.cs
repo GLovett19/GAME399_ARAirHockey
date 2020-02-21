@@ -21,7 +21,8 @@ public class TopMenu_Script : MonoBehaviour
     
     public void SceneTransition(string toLoad)
     {
-        ActiveSceneManager.LoadScene(toLoad, false);
         ActiveSceneManager.UnloadScene(str_toUnload);
+        ActiveSceneManager.LoadScene(toLoad, false);
+        
     }
 }
