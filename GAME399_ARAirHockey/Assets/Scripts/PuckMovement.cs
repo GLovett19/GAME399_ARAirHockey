@@ -54,8 +54,13 @@ public class PuckMovement : MonoBehaviour
             // tell the barrier to bounce, shake or react here using pubilc methods in the barrier class.
             other.collider.GetComponent<Barrier>().Hit(0);
             //Reflect the target direction by the normal of the collision, Does this still work with sphere & Cylinder colliders? 
-             v3_TargetDirection = Vector3.Reflect(v3_TargetDirection, other.contacts[0].normal);
+            v3_TargetDirection = Vector3.Reflect(v3_TargetDirection, other.contacts[0].normal);
 
+        }
+        // if the ball is colliding against a players paddle
+        else if (other.collider.GetComponent<PaddleControllerScript>() != null)
+        {
+            v3_TargetDirection = Vector3.Reflect(v3_TargetDirection, other.contacts[0].normal);
         }
 
     }
