@@ -7,6 +7,9 @@ public class PuckMovement : MonoBehaviour
     //Self Assigned Components
     public Rigidbody rb_Rigidbody;
 
+    //Audio
+    public AudioClip explosion;
+    AudioSource audioSource;
 
     // fields 
     public float f_Speed;
@@ -15,6 +18,9 @@ public class PuckMovement : MonoBehaviour
 
     void Start()
     {
+        //Audio
+        audioSource = GetComponent<AudioSource>();
+
         //Self Assigned Components 
         rb_Rigidbody = GetComponent<Rigidbody>();
 
@@ -53,6 +59,10 @@ public class PuckMovement : MonoBehaviour
             // do collision barrier things only, 
             // tell the barrier to bounce, shake or react here using pubilc methods in the barrier class.
             other.collider.GetComponent<Barrier>().Hit(0);
+
+            //Audio
+            audioSource.PlayOneShot(explosion, 0.7f);
+
             //Reflect the target direction by the normal of the collision, Does this still work with sphere & Cylinder colliders? 
             v3_TargetDirection = Vector3.Reflect(v3_TargetDirection, other.contacts[0].normal);
 
