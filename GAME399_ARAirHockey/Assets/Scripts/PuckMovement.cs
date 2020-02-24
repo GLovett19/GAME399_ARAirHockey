@@ -60,7 +60,7 @@ public class PuckMovement : MonoBehaviour
         // if the ball is colliding against a players paddle
         else if (other.collider.GetComponent<PaddleControllerScript>() != null)
         {
-            v3_TargetDirection = Vector3.Reflect(v3_TargetDirection, other.contacts[0].normal);
+            v3_TargetDirection = other.contacts[0].normal;
         }
 
     }
