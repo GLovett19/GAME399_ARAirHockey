@@ -59,12 +59,14 @@
      <Compile Include="Assets\Scripts\AppManager.cs" />
      <Compile Include="Assets\Scripts\Barrier.cs" />
      <Compile Include="Assets\Scripts\CameraFlip.cs" />
+     <Compile Include="Assets\Scripts\ControlScriptGeneric.cs" />
      <Compile Include="Assets\Scripts\PaddleControllerScript.cs" />
      <Compile Include="Assets\Scripts\PuckMovement.cs" />
      <Compile Include="Assets\Scripts\ReadyBoard.cs" />
      <Compile Include="Assets\Scripts\ScoreBoard.cs" />
      <Compile Include="Assets\Scripts\ScoreManager.cs" />
      <Compile Include="Assets\Scripts\SelectionHitBoxScript.cs" />
+     <Compile Include="Assets\Scripts\SelectorControlScript.cs" />
      <Compile Include="Assets\Scripts\TopMenu_Script.cs" />
      <Compile Include="Assets\Scripts\TriggerTesting.cs" />
      <None Include="Assets\StreamingAssets\Vuforia\VuforiaMars_Images.xml" />

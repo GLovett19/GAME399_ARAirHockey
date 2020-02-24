@@ -3,44 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using Vuforia;
 
-public class PaddleControllerScript : MonoBehaviour
+public class PaddleControllerScript : ControlScriptGeneric
 {
-    //Components
-    public ImageTargetBehaviour itb_ImageTarget;
-
-
-    //Fields
-    //public string s_ImageTargetName;
-    public float f_movementScaleValueX = -50;
-    public float f_movementScaleValueY = 50;
-
-
-    void Start()
-    {
-    }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
-        if (itb_ImageTarget != null)
-        {
-
-            f_movementScaleValueX = 50 / (Mathf.Clamp(Mathf.Abs(itb_ImageTarget.transform.position.z + 20),0,1)+1); 
-            f_movementScaleValueY = 50 / (Mathf.Clamp(Mathf.Abs(itb_ImageTarget.transform.position.z + 20), 0,1)+1);
-
-
-            Vector3 v3 = new Vector3(itb_ImageTarget.transform.position.x * f_movementScaleValueX, (-1 + itb_ImageTarget.transform.position.y) * f_movementScaleValueY, 0f);
-            transform.position = v3;
-            transform.localPosition = new Vector3(
-                transform.localPosition.x,
-                transform.localPosition.y,
-                0f
-                );
-            //Debug.Log(itb_ImageTarget.transform.position.z);
-        }
-       
+        Movement();
     }
 
+    public void LimitMovement()
+    {
+        // limit the position to positive or negative here
+    }
 
    
 
