@@ -14,7 +14,9 @@ public class PuckMovement : MonoBehaviour
     // fields 
     public float f_Speed;
     public Vector3 v3_TargetDirection;
-    
+
+    //private fields 
+    public Vector3 v3_SavedVelocity;
 
     void Start()
     {
@@ -74,4 +76,25 @@ public class PuckMovement : MonoBehaviour
         }
 
     }
+    public void PausePuckMovement()
+    {
+        // save the current velocity 
+        v3_SavedVelocity = f_Speed * v3_TargetDirection;
+
+        // stop the puck 
+        f_Speed = 0;
+        v3_TargetDirection = Vector3.zero;
+    }
+    public void ResumePuckMovement()
+    {
+        f_Speed = v3_SavedVelocity.magnitude;
+        v3_TargetDirection = v3_SavedVelocity.normalized;
+
+        v3_SavedVelocity = Vector3.zero;
+    }
+    public Vector3 GetSavedVelocity()
+    {
+        return v3_SavedVelocity;
+    }
+
 }

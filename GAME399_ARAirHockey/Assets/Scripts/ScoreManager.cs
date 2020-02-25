@@ -23,11 +23,10 @@ public class ScoreManager : MonoBehaviour
     //Components 
     public ScoreBoard Player1Scoreboard;
     public ScoreBoard Player2Scoreboard;
-    //public MovingPanel readyboard;
     public MenuGeneric myMenu;
     public Text CountDowntext;
     public GameObject PuckPrefab;
-    
+    public SelectorControlScript mySelector;
 
 
     PuckMovement ActivePuck;
@@ -85,6 +84,32 @@ public class ScoreManager : MonoBehaviour
             }
             f_Counter -= Time.deltaTime;
         }
+        // if the selector is visible
+        /*
+         * stop the puck
+         * Stop the Paddles 
+         * Set the Pause Menu Panel visible 
+         */
+        if (mySelector.tracking && ActivePuck.GetSavedVelocity() == Vector3.zero)
+        {
+            //Stop the puck
+            // create a method called PausePuck() which saves the velocity to remain unchainged for later 
+            ActivePuck.PausePuckMovement();
+
+            // Stop the paddles 
+            // disable their colliders, it wont stop the paddles but it will stop them from interacting with anything in the world
+
+            //Set the pause menu to be visible 
+            // add a pause menu panel and whatever options that entails.
+        }
+        else
+        {
+            if (!mySelector.tracking && ActivePuck.GetSavedVelocity() != Vector3.zero)
+            {
+                ActivePuck.ResumePuckMovement();
+            }
+        }
+
         
     }
 
@@ -150,21 +175,6 @@ public class ScoreManager : MonoBehaviour
     
     public void RoundEnd()
     {
-
-
-        // Attempting to mesh the score manager with the Genericised Menu script to allow better pause game management
-
-        // Round Ends 
-
-        // Show Scoreboards handlded here by score manager
-
-
-        
-
-        // Testing Ends 
-
-        // this makes sure the ready board is displaying the correct buttons, find a better place to do this later.
-        //readyboard.RoundEndButtons();
 
         // destroy any puck still on the table
         Destroy(ActivePuck.gameObject);
@@ -262,14 +272,4 @@ public class ScoreManager : MonoBehaviour
         myMenu.ShowPanel("GameEndPanel");
     }
 
-    public void LoadNextGame()
-    {
-        ActiveSceneManager.ReloadScene(str_toUnload, true);
-    }
-    public void LoadMainMenu()
-    {
-        
-        ActiveSceneManager.LoadScene("TopMenu", false);
-        ActiveSceneManager.UnloadScene(str_toUnload);
-    }
 }

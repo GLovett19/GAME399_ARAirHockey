@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1391,6 +1391,7 @@ MonoBehaviour:
   CountDowntext: {fileID: 725920814}
   PuckPrefab: {fileID: 6381859573627946039, guid: 92262cc63b67c8e4cbfcff5a317f101d,
     type: 3}
+  mySelector: {fileID: 2047805085}
   int_MatchPoint: 7
   int_GamePoint: 2
   int_Player1Score: 0
@@ -9823,6 +9824,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2038095275}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2047805085 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3921729677717190448, guid: 7e68f066d1e78d74890d88c5c76c0bed,
+    type: 3}
+  m_PrefabInstance: {fileID: 683903456}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f73506bdb6ffd48408016a76e83a9ed2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2089420360
 PrefabInstance:
   m_ObjectHideFlags: 0
