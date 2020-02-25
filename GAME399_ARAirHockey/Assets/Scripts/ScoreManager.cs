@@ -23,7 +23,8 @@ public class ScoreManager : MonoBehaviour
     //Components 
     public ScoreBoard Player1Scoreboard;
     public ScoreBoard Player2Scoreboard;
-    public ReadyBoard readyboard;
+    //public MovingPanel readyboard;
+    public MenuGeneric myMenu;
     public Text CountDowntext;
     public GameObject PuckPrefab;
     
@@ -47,7 +48,9 @@ public class ScoreManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        readyboard.MatchEndButtons();
+        myMenu = GetComponent<MenuGeneric>();
+        //readyboard.MatchEndButtons();
+        myMenu.ShowPanel("MatchEndPanel");
         str_toUnload = ActiveSceneManager.GetSceneName();
     }
 
@@ -59,25 +62,26 @@ public class ScoreManager : MonoBehaviour
             CountDowntext.enabled = true;
             switch((int)f_Counter)
             {
-                case 3:
+                case 4:
                     CountDowntext.text = "3";
                 break;
-                case 2:
+                case 3:
                     CountDowntext.text = "2";
                     break;
-                case 1:
+                case 2:
                     CountDowntext.text = "1";
                     break;
+                case 1:
+                    CountDowntext.text = "GO";                   
+                    break;
                 case 0:
-                    CountDowntext.text = "GO";
-                    SpawnPuck();
+                    RoundStart();
                     f_Counter = 0;
+                    SpawnPuck();
                     CountDowntext.enabled = false;
                     break;
                 default:
                     break;
-
-
             }
             f_Counter -= Time.deltaTime;
         }
@@ -146,9 +150,22 @@ public class ScoreManager : MonoBehaviour
     
     public void RoundEnd()
     {
-        // this makes sure the ready board is displaying the correct buttons, find a better place to do this later.
-        readyboard.RoundEndButtons();
+
+
+        // Attempting to mesh the score manager with the Genericised Menu script to allow better pause game management
+
+        // Round Ends 
+
+        // Show Scoreboards handlded here by score manager
+
+
         
+
+        // Testing Ends 
+
+        // this makes sure the ready board is displaying the correct buttons, find a better place to do this later.
+        //readyboard.RoundEndButtons();
+
         // destroy any puck still on the table
         Destroy(ActivePuck.gameObject);
         ActivePuck = null;
@@ -160,18 +177,22 @@ public class ScoreManager : MonoBehaviour
             Player2Scoreboard.ToggleScoreBoardVisible();
         }
 
-        // ready prompt for the players to start a new round appears
-        if (readyboard.b_isVisible == false)
-        {
-            readyboard.ToggleReadyBoardVisible();           
-        }
-
         if (int_Player1Score >= int_MatchPoint || int_Player2Score >= int_MatchPoint)
         {
             // this makes sure the ready board is displaying the correct buttons, find a better place to do this later.
-            readyboard.MatchEndButtons();
+            //readyboard.MatchEndButtons();
+
+
             MatchEnd();
 
+        }
+        else
+        {
+            // no check between rounds, show match end panel for testing purposes 
+            //myMenu.ShowPanel("MatchEndPanel");
+            
+            // Set the Start timer 
+            f_Counter = 5f;
         }
         
 
@@ -179,35 +200,21 @@ public class ScoreManager : MonoBehaviour
     }
     public void RoundStart()
     {
-        f_Counter = 4f;
+
+        f_Counter = 5f;
         // scoreboards are hidden and ready prompt disappears
         if (Player1Scoreboard.b_isVisible == true && Player2Scoreboard.b_isVisible == true)
         { 
         Player1Scoreboard.ToggleScoreBoardVisible();
         Player2Scoreboard.ToggleScoreBoardVisible();
         }
-        if (readyboard.b_isVisible == true)
-        {
-            readyboard.ToggleReadyBoardVisible();
-        }
-
-
-        // new puck is spawned and the game begins 
-        /*
-         * How should the new puck be spawned? 
-         * 
-         * there should be a countdown 3,2,1,GO and then the puck is spawned at the center hit towards the player who was just scored on. 
-         * 
-         * currently spawns puck using code below, but there is no delay meaning the puck moves while the UI is still covering the screen
-         * 
-         * 
-         */
-        //SpawnPuck();
        
     }
 
     public void MatchEnd()
     {
+       
+
         // assign wins to proper player 
         if (int_Player1Score > int_Player2Score)
         {
@@ -220,14 +227,21 @@ public class ScoreManager : MonoBehaviour
         // check to see if the game is over
         if (int_Player1Wins >= int_GamePoint || int_Player2Wins >= int_GamePoint)
         {
-            Debug.Log("C");
+
             GameEnd();
             
+        }
+        else
+        {
+            // show the match end panel
+            myMenu.ShowPanel("MatchEndPanel");
         }
 
     }
     public void MatchStart()
     {
+        myMenu.HidePanel("MatchEndPanel");
+
         int_Player1Score = 0;
         int_Player2Score = 0;
         RoundStart();
@@ -245,17 +259,7 @@ public class ScoreManager : MonoBehaviour
 
     public void GameEnd()
     {
-        // what needs to happen at the end of a game
-        /*
-         * Swap ready board buttons to play next game OR return to main menu
-         *      play next game can just reload the sceen
-         *      Main menu can just load the main menu
-         * Some Kind of Congradulations for the winner? 
-         *      A Crown pops out over their scoreboard? 
-         *      Something Else, Talk about this in class friday
-         */
-        Debug.Log("B");
-        readyboard.GameEndButtons();
+        myMenu.ShowPanel("GameEndPanel");
     }
 
     public void LoadNextGame()
