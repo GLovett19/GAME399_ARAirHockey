@@ -23,7 +23,6 @@ public class MovingPanel : PanelGeneric
     //Private Fields 
     float f_Count;
 
-    bool b_RoundEnding = false;
 
     // Start is called before the first frame update
     void Start()

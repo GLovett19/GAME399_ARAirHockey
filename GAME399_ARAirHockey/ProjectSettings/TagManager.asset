@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Selector
   - Goal
+  - Barrier
+  - Paddle
   layers:
   - Default
   - TransparentFX

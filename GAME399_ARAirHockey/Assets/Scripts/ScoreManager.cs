@@ -42,7 +42,7 @@ public class ScoreManager : MonoBehaviour
     public int int_Player1Wins;
     public int int_Player2Wins;
     float f_Counter;
-    public string str_toUnload;
+   // public string str_toUnload;
 
     // Start is called before the first frame update
     void Start()
@@ -50,7 +50,7 @@ public class ScoreManager : MonoBehaviour
         myMenu = GetComponent<MenuGeneric>();
         //readyboard.MatchEndButtons();
         myMenu.ShowPanel("MatchEndPanel");
-        str_toUnload = ActiveSceneManager.GetSceneName();
+       // str_toUnload = ActiveSceneManager.GetSceneName();
     }
 
     // Update is called once per frame
@@ -101,13 +101,16 @@ public class ScoreManager : MonoBehaviour
 
             //Set the pause menu to be visible 
             // add a pause menu panel and whatever options that entails.
+            myMenu.ShowPanel("PausePanel");
         }
         else
         {
             if (!mySelector.tracking && ActivePuck.GetSavedVelocity() != Vector3.zero)
             {
                 ActivePuck.ResumePuckMovement();
+                myMenu.HidePanel("PausePanel");
             }
+            
         }
 
         
