@@ -148,10 +148,14 @@ public class ScoreManager : MonoBehaviour
     {
         // this makes sure the ready board is displaying the correct buttons, find a better place to do this later.
         readyboard.RoundEndButtons();
-        
+
         // destroy any puck still on the table
-        Destroy(ActivePuck.gameObject);
-        ActivePuck = null;
+        if (!ActivePuck.GetComponent<AudioSource>().isPlaying) {
+            //Destroy(ActivePuck.gameObject);
+            //ActivePuck = null;
+        }
+        //Destroy(ActivePuck.gameObject);
+        //ActivePuck = null;
 
         // show the scoreboards 
         if (Player1Scoreboard.b_isVisible == false && Player2Scoreboard.b_isVisible == false)

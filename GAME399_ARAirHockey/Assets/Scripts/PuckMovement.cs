@@ -8,7 +8,9 @@ public class PuckMovement : MonoBehaviour
     public Rigidbody rb_Rigidbody;
 
     //Audio
-    public AudioClip explosion;
+
+    public List<AudioClip> ac_SoundEffects;
+    //public AudioClip explosion;
     AudioSource audioSource;
 
     // fields 
@@ -54,24 +56,32 @@ public class PuckMovement : MonoBehaviour
         // possibly use a switch statement instead of and If statement in future iterations, for more flexibility and collision types. 
 
         // check if the ball is colliding against a barrier
-        if (other.collider.GetComponent<Barrier>() != null)
+        if (other.gameObject.GetComponent<Barrier>() != null)
         {
             // do collision barrier things only, 
             // tell the barrier to bounce, shake or react here using pubilc methods in the barrier class.
             other.collider.GetComponent<Barrier>().Hit(0);
 
             //Audio
-            audioSource.PlayOneShot(explosion, 0.7f);
+            audioSource.PlayOneShot(ac_SoundEffects[0], 0.7f);
 
             //Reflect the target direction by the normal of the collision, Does this still work with sphere & Cylinder colliders? 
             v3_TargetDirection = Vector3.Reflect(v3_TargetDirection, other.contacts[0].normal);
 
         }
         // if the ball is colliding against a players paddle
-        else if (other.collider.GetComponent<PaddleControllerScript>() != null)
+         if (other.gameObject.GetComponent<PaddleControllerScript>() != null)
         {
+            //Audio
+            audioSource.PlayOneShot(ac_SoundEffects[1], 0.7f);
+
             v3_TargetDirection = other.contacts[0].normal;
         }
-
+         if (other.gameObject.GetComponent<TriggerTesting>() != null)
+        {
+            Debug.Log("goal");
+            //Audio
+            audioSource.PlayOneShot(ac_SoundEffects[2], 0.7f);
+        }
     }
 }
