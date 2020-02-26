@@ -7,6 +7,9 @@ public class PuckMovement : MonoBehaviour
     //Self Assigned Components
     public Rigidbody rb_Rigidbody;
 
+    //Particles
+    public ParticleSystem goalParticles;
+
     //Audio
     public AudioClip explosion;
     AudioSource audioSource;
@@ -95,6 +98,16 @@ public class PuckMovement : MonoBehaviour
     public Vector3 GetSavedVelocity()
     {
         return v3_SavedVelocity;
+    }
+
+    void OnTriggerEnter(Collider col)
+    {
+        switch (col.tag)
+        {
+            case "Goal":
+                Instantiate(goalParticles, transform.position, Quaternion.identity);
+                break;
+        }
     }
 
 }
