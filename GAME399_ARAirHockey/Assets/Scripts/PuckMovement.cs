@@ -7,14 +7,22 @@ public class PuckMovement : MonoBehaviour
     //Self Assigned Components
     public Rigidbody rb_Rigidbody;
 
+    //Audio
+    public AudioClip explosion;
+    AudioSource audioSource;
 
     // fields 
     public float f_Speed;
     public Vector3 v3_TargetDirection;
-    
+
+    //private fields 
+    public Vector3 v3_SavedVelocity;
 
     void Start()
     {
+        //Audio
+        audioSource = GetComponent<AudioSource>();
+
         //Self Assigned Components 
         rb_Rigidbody = GetComponent<Rigidbody>();
 
@@ -53,10 +61,40 @@ public class PuckMovement : MonoBehaviour
             // do collision barrier things only, 
             // tell the barrier to bounce, shake or react here using pubilc methods in the barrier class.
             other.collider.GetComponent<Barrier>().Hit(0);
-            //Reflect the target direction by the normal of the collision, Does this still work with sphere & Cylinder colliders? 
-             v3_TargetDirection = Vector3.Reflect(v3_TargetDirection, other.contacts[0].normal);
 
+            //Audio
+            audioSource.PlayOneShot(explosion, 0.7f);
+
+            //Reflect the target direction by the normal of the collision, Does this still work with sphere & Cylinder colliders? 
+            v3_TargetDirection = Vector3.Reflect(v3_TargetDirection, other.contacts[0].normal);
+
+        }
+        // if the ball is colliding against a players paddle
+        else if (other.collider.GetComponent<PaddleControllerScript>() != null)
+        {
+            v3_TargetDirection = other.contacts[0].normal;
         }
 
     }
+    public void PausePuckMovement()
+    {
+        // save the current velocity 
+        v3_SavedVelocity = f_Speed * v3_TargetDirection;
+
+        // stop the puck 
+        f_Speed = 0;
+        v3_TargetDirection = Vector3.zero;
+    }
+    public void ResumePuckMovement()
+    {
+        f_Speed = v3_SavedVelocity.magnitude;
+        v3_TargetDirection = v3_SavedVelocity.normalized;
+
+        v3_SavedVelocity = Vector3.zero;
+    }
+    public Vector3 GetSavedVelocity()
+    {
+        return v3_SavedVelocity;
+    }
+
 }
