@@ -11,13 +11,13 @@ public class PuckMovement : MonoBehaviour
     public ParticleSystem goalParticles;
 
     //Audio
-
-    public List<AudioClip> ac_SoundEffects;
-    //public AudioClip explosion;
+    public AudioClip explosion;
     AudioSource audioSource;
 
     // fields 
     public float f_Speed;
+    public float f_minSpeed;
+    public float f_maxSpeed;
     public Vector3 v3_TargetDirection;
 
     //private fields 
@@ -58,37 +58,49 @@ public class PuckMovement : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
+
+        switch (other.gameObject.tag)
+        {
+
+
+            case "Barrier":
+                other.collider.GetComponent<Barrier>().Hit(0);
+                //Audio
+                audioSource.PlayOneShot(explosion, 0.7f);
+                //Reflect the target direction by the normal of the collision, Does this still work with sphere & Cylinder colliders? 
+                v3_TargetDirection = Vector3.Reflect(v3_TargetDirection, other.contacts[0].normal);
+                if (f_Speed > f_minSpeed)
+                {
+                    f_Speed *= .9f;
+                }
+                break;
+            case "Paddle":
+                // set the new direction and increase the speed 
+                v3_TargetDirection = other.contacts[0].normal;
+                if (f_Speed < f_maxSpeed)
+                {
+                    f_Speed *= 1.2f;
+                }
+                break;
+            default:
+                break;
+        }
         // possibly use a switch statement instead of and If statement in future iterations, for more flexibility and collision types. 
 
-        // check if the ball is colliding against a barrier
-        if (other.gameObject.GetComponent<Barrier>() != null)
+    }    
+    void OnTriggerEnter(Collider col)
+    {
+        switch (col.tag)
         {
-            // do collision barrier things only, 
-            // tell the barrier to bounce, shake or react here using pubilc methods in the barrier class.
-            other.collider.GetComponent<Barrier>().Hit(0);
-
-            //Audio
-            audioSource.PlayOneShot(ac_SoundEffects[0], 0.7f);
-
-            //Reflect the target direction by the normal of the collision, Does this still work with sphere & Cylinder colliders? 
-            v3_TargetDirection = Vector3.Reflect(v3_TargetDirection, other.contacts[0].normal);
-
-        }
-        // if the ball is colliding against a players paddle
-         if (other.gameObject.GetComponent<PaddleControllerScript>() != null)
-        {
-            //Audio
-            audioSource.PlayOneShot(ac_SoundEffects[1], 0.7f);
-
-            v3_TargetDirection = other.contacts[0].normal;
-        }
-         if (other.gameObject.GetComponent<TriggerTesting>() != null)
-        {
-            Debug.Log("goal");
-            //Audio
-            audioSource.PlayOneShot(ac_SoundEffects[2], 0.7f);
+            case "Goal":
+                Instantiate(goalParticles, transform.position, Quaternion.identity);
+                break;
+            default:
+                break;
         }
     }
+
+
     public void PausePuckMovement()
     {
         // save the current velocity 
@@ -109,15 +121,4 @@ public class PuckMovement : MonoBehaviour
     {
         return v3_SavedVelocity;
     }
-
-    void OnTriggerEnter(Collider col)
-    {
-        switch (col.tag)
-        {
-            case "Goal":
-                Instantiate(goalParticles, transform.position, Quaternion.identity);
-                break;
-        }
-    }
-
 }
