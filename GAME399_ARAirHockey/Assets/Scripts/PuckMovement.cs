@@ -93,6 +93,7 @@ public class PuckMovement : MonoBehaviour
         switch (col.tag)
         {
             case "Goal":
+                audioSource.PlayOneShot(explosion, 0.7f);
                 Instantiate(goalParticles, transform.position, Quaternion.identity);
                 break;
             default:
