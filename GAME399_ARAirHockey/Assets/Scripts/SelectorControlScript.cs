@@ -28,6 +28,7 @@ public class SelectorControlScript : ControlScriptGeneric
         {
             // if the target is detected do a specific thing now
             //Time.timeScale = 0;
+            Debug.Log(itb_ImageTarget.transform.position.z);
 
             tracking = true;
             myMesh.enabled = true;
