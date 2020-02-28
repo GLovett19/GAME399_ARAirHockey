@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -729,8 +729,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itb_ImageTarget: {fileID: 490161431}
-  f_movementScaleValueX: -5
-  f_movementScaleValueY: 5
+  f_movementScaleValueX: -2
+  f_movementScaleValueY: 2
 --- !u!1 &179230300
 GameObject:
   m_ObjectHideFlags: 0
@@ -1066,8 +1066,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itb_ImageTarget: {fileID: 941661816}
-  f_movementScaleValueX: -5
-  f_movementScaleValueY: 5
+  f_movementScaleValueX: -2
+  f_movementScaleValueY: 2
 --- !u!136 &467361734
 CapsuleCollider:
   m_ObjectHideFlags: 0
