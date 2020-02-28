@@ -11,7 +11,7 @@ public class PuckMovement : MonoBehaviour
     public ParticleSystem goalParticles;
 
     //Audio
-    public AudioClip explosion;
+    public List<AudioClip> explosion;
     AudioSource audioSource;
 
     // fields 
@@ -65,8 +65,10 @@ public class PuckMovement : MonoBehaviour
 
             case "Barrier":
                 other.collider.GetComponent<Barrier>().Hit(0);
+
                 //Audio
-                audioSource.PlayOneShot(explosion, 0.7f);
+                audioSource.PlayOneShot(explosion [0], 0.7f);
+
                 //Reflect the target direction by the normal of the collision, Does this still work with sphere & Cylinder colliders? 
                 v3_TargetDirection = Vector3.Reflect(v3_TargetDirection, other.contacts[0].normal);
                 if (f_Speed > f_minSpeed)
@@ -75,6 +77,10 @@ public class PuckMovement : MonoBehaviour
                 }
                 break;
             case "Paddle":
+
+                //Audio
+                audioSource.PlayOneShot(explosion [1], 0.7f);
+
                 // set the new direction and increase the speed 
                 v3_TargetDirection = other.contacts[0].normal;
                 if (f_Speed < f_maxSpeed)
@@ -93,7 +99,7 @@ public class PuckMovement : MonoBehaviour
         switch (col.tag)
         {
             case "Goal":
-                audioSource.PlayOneShot(explosion, 0.7f);
+                audioSource.PlayOneShot(explosion [2], 0.7f);
                 Instantiate(goalParticles, transform.position, Quaternion.identity);
                 break;
             default:

@@ -226,7 +226,6 @@ public class ScoreManager : MonoBehaviour
 
     public void MatchEnd()
     {
-       
 
         // assign wins to proper player 
         if (int_Player1Score > int_Player2Score)
@@ -254,7 +253,6 @@ public class ScoreManager : MonoBehaviour
     public void MatchStart()
     {
         myMenu.HidePanel("MatchEndPanel");
-
         int_Player1Score = 0;
         int_Player2Score = 0;
         RoundStart();
