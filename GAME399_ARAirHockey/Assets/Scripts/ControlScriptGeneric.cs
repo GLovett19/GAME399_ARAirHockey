@@ -11,8 +11,8 @@ public class ControlScriptGeneric : MonoBehaviour
 
 
     //Fields
-    public float f_movementScaleValueX = -50;
-    public float f_movementScaleValueY = 50;
+    public float f_movementScaleValueX = -1;
+    public float f_movementScaleValueY = 1;
 
 
     public virtual void Update()
@@ -25,8 +25,8 @@ public class ControlScriptGeneric : MonoBehaviour
         if (itb_ImageTarget != null)
         {
 
-            f_movementScaleValueX = 50 / (Mathf.Clamp(Mathf.Abs(itb_ImageTarget.transform.position.z + 20), 0, 1) + 1);
-            f_movementScaleValueY = 50 / (Mathf.Clamp(Mathf.Abs(itb_ImageTarget.transform.position.z + 20), 0, 1) + 1);
+            //f_movementScaleValueX = -50 / (Mathf.Clamp(Mathf.Abs(itb_ImageTarget.transform.position.z + 20), 0, 1) + 1);
+            //f_movementScaleValueY = 50 / (Mathf.Clamp(Mathf.Abs(itb_ImageTarget.transform.position.z + 20), 0, 1) + 1);
 
 
             Vector3 v3 = new Vector3(itb_ImageTarget.transform.position.x * f_movementScaleValueX, (-1 + itb_ImageTarget.transform.position.y) * f_movementScaleValueY, 0f);
