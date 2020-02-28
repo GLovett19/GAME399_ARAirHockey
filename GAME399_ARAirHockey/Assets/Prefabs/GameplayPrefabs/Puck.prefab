@@ -89,7 +89,10 @@ MonoBehaviour:
   rb_Rigidbody: {fileID: 0}
   goalParticles: {fileID: 6812831034674173865, guid: 70c6e209c74a85c4082edcb2018a54d1,
     type: 3}
-  explosion: {fileID: 8300000, guid: 3376cddc8e512974aafbb1d02cbc7e05, type: 3}
+  explosion:
+  - {fileID: 8300000, guid: eaa851baf8fefd94eacf41e496c8c95f, type: 3}
+  - {fileID: 8300000, guid: 3376cddc8e512974aafbb1d02cbc7e05, type: 3}
+  - {fileID: 8300000, guid: 1221616a914a9154896b692ebdcebe3f, type: 3}
   f_Speed: 0
   f_minSpeed: 1
   f_maxSpeed: 10
